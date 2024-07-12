@@ -1,15 +1,32 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Form, Input, Button, Radio, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
+import { RegisterUser } from "../api/users";
 
 
 function Register() {
+  let [submitting, setSubmitting] = useState(false);
+
   const onFinish = async (values) => {
-    console.log(values);
-   
+    setSubmitting(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      let response = await RegisterUser(values);
+      if (response.data.success) {
+        message.success(response.data.message);
+        setSubmitting(false);
+        return;
+      } else {
+        message.error(response.data.message);
+        setSubmitting(false);
+        return;
+      }
+    } catch (err) {
+      message.error(`User registration failed`);
+      setSubmitting(false);
+      return;
+    }
   };
-
-
 
   return (
     <>
@@ -67,6 +84,7 @@ function Register() {
                   type="primary"
                   htmlType="submit"
                   style={{ fontSize: "1rem", fontWeight: "600" }}
+                  loading={submitting}
                 >
                   Sign Up
                 </Button>

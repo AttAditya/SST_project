@@ -1,15 +1,41 @@
-import React, { useEffect } from 'react'
+// eslint-disable-next-line
+import React, { useEffect, useState } from 'react'
 import { Button, Form, Input } from "antd";
 import { Link , useNavigate } from "react-router-dom";
 
 import {message} from 'antd'
+import { LoginUser } from '../api/users';
 
 
 function Login() {
+  let navigate = useNavigate();
+  let [submitting, setSubmitting] = useState(false);
   
   const onFinish = async (values)=>{
-    console.log(values)
-   
+    setSubmitting(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      let response = await LoginUser(values);
+      if (response.data.success) {
+        message.success(response.data.message);
+        localStorage.setItem("auth_token", response.data.token);
+
+        setTimeout(() => {
+          navigate("/");
+          setSubmitting(false);
+        }, 2000);
+        
+        return;
+      } else {
+        message.error(response.data.message);
+        setSubmitting(false);
+        return;
+      }
+    } catch (err) {
+      message.error(`User login failed`);
+      setSubmitting(false);
+      return;
+    }
   }
 
  
@@ -59,6 +85,7 @@ function Login() {
                 block
                 htmlType="submit"
                 style={{ fontSize: "1rem", fontWeight: "600" }}
+                loading={submitting}
               >
                 Login
               </Button>
