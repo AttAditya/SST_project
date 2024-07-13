@@ -20,9 +20,19 @@ export const LoginUser = async (value) => {
     }
 }
 
+export const VerifyLogin = async () => {
+    try {
+        const response = await axiosInstance.get('api/users/login/verify');
+        return response;
+    }
+    catch (error) {
+        return error;
+    }
+}
+
 export const GetCurrentUser = async () => {
     try {
-        const response = await axiosInstance.get('api/users/get-current-user');
+        const response = await axiosInstance.get('api/users/login/verify');
         return response;
     }
     catch (error) {

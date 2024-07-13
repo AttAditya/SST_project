@@ -91,7 +91,7 @@ router.post("/login", async (req, res) => {
     }
 });
 
-router.get("/get-current-user", authMiddleware, async (req, res) => {
+router.get("/login/verify", authMiddleware, async (req, res) => {
     if (!req.body.userId) {
         return res.json({
             success: false,

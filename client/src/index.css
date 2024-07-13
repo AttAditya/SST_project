@@ -237,7 +237,6 @@ hr{
   padding-inline: 1rem;
 }
 
-/* Loader */
 .loader-container{
   position: fixed;
   top: 0;
@@ -256,7 +255,7 @@ hr{
   border-top: 16px solid #3498db;
   width: 120px;
   height: 120px;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
+  -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
 }
 .ant-table-content{
@@ -272,7 +271,6 @@ hr{
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-/* Loader Ends here */
 
 @media screen and (min-width: 768px){
   .site-layout{

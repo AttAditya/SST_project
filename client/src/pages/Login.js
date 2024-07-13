@@ -23,7 +23,7 @@ function Login() {
         setTimeout(() => {
           navigate("/");
           setSubmitting(false);
-        }, 2000);
+        }, 1000);
         
         return;
       } else {
